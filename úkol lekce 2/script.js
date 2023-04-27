@@ -22,8 +22,8 @@ const persons = [
 ];
 
 // Pomocí metody filter získejte z pole numbers pouze ta čísla, která jsou sudá, a uložte je do proměnné evenNumbers. Vypište toto nové pole do konzole.
-const eventNumbers = numbers.filter(cislo=>cislo %2===0);
-console.log(eventNumbers);
+const evenNumbers = numbers.filter(cislo=>cislo %2===0);
+console.log(evenNumbers);
   
 // Pomocí metody filter získejte z pole persons pouze dospělé lidi a uložte je do proměnné adults. Vypište toto nové pole do konzole.
 const adults = persons.filter(person=>person.age>=18);
@@ -41,7 +41,7 @@ const emails = persons.map(jmeno=>`${jmeno.name.toLowerCase()}@gmail.com`);
 console.log(emails);
 
 // Z pole persons pomocí metody map vytvořte pro každou osobu položku HTML seznamu ve formátu <li>Petr (16)</li> a výsledek uložte do proměnné list. Vypište toto nové pole do konzole.
-const list = persons.map(person=>`<li>${person.name}(${person.age})</li>`);
+const list = persons.map(person=>`<li>${person.name} (${person.age})</li>`);
 console.log(list);
 
 // Agregace
@@ -70,6 +70,16 @@ textElmDospeli.innerHTML = seznamDospeli;
 
 
 // Proveďte totéž jako v předchozím bodě, přidejte však do položky seznamu CSS třídu dle pohlaví dané osoby.
+//ŘEŠENÍ OD MARTINY
+// let className = 'nonbinary';
+// if (person.gender === 'female' || person.gender === 'male') {
+//   className = person.gender;
+// }
+// return `<li class="${className}">${person.name} (${person.age})</li>`
+
+//NEBO POMOCÍ TERNÁRNÍCH OPERÁTORŮ:
+// return `<li class="${ person.gender === 'female' || person.gender === 'male' ? person.gender : 'nonbinary' }">${person.name} (${person.age})</li>`
+
 const seznamDospeliPohlavi =' <ul>'+ persons
 .filter(person=>person.age>18)
 .map(person=>
@@ -90,6 +100,7 @@ const seznamDospeliPohlavi =' <ul>'+ persons
     }
     )
 .join('')+ '</ul>';
+//POKUD NEMÁM PARAMETR DA SE JOIN POUŽÍT s prázdnými závorkami: join()
 const textElmDospeliPohlavi = document.querySelector('.seznamDospeliPohlavi');
 textElmDospeliPohlavi.innerHTML = seznamDospeliPohlavi;
 
@@ -101,6 +112,7 @@ textElmDospeliPohlavi.innerHTML = seznamDospeliPohlavi;
 // V tomto cvičení budeme opět pracovat s poli z našich jednohubek.
 
 // Pomocí metody forEach napište cyklus, který vypíše do konzole poslední písmeno z každého jména v poli names.
+//poslední prvek se dá zjistit i item.slice(-1)
 names.forEach(jmeno => {
     console.log(jmeno[jmeno.length-1])
 });
@@ -115,6 +127,12 @@ const dospelaOsobaMuz = persons.every(osoba=>osoba.age>=18 && (osoba.gender==='m
 console.log(dospelaOsobaMuz);
 
 // Pomocí metody forEach napište cyklus, který spočítá průměr čísel v poli numbers.
+//Martina:
+//let sum = 0;
+// numbers.forEach((item) => (sum += item));
+// const average = sum / numbers.length;
+// console.log(average);
+
 let soucet = 0;
 let pocet= 0;
 numbers.forEach(cislo => {
@@ -155,7 +173,7 @@ const items = [
 // V souboru index.js vyberte ze stránky seznam .shopping-list a pomocí metod map, join a vlastnosti innerHTML vytvořte obsah stránky zobrazující položky z pole items. Každá položka v HTML bude mít následující strukturu:
 // <li class="item">
 //   <div class="item__name">Rohlíky</div>
-//   <div class="item__amount">10</div>
+//   <div class="item__amount">10</div> - item dvě podtržítka BEM notace
 // </li>
 const shopingList = document.querySelector('.shopping-list');
 
@@ -163,8 +181,8 @@ const polozky =
 items.map(polozka =>
 `
 <li class="item">
-    <div class='item_name'>${polozka.product} </div> 
-    <div class='item_amount'>${polozka.amount} </div>
+    <div class='item__name'>${polozka.product} </div> 
+    <div class='item__amount'>${polozka.amount} </div>
 </li>
 `)
 .join('');
